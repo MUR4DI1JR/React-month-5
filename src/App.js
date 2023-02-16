@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Loader from "./component/Loader/Loader";
+import Content from "./component/content";
+import HelloWorld from "./component/helloWorld";
+import WindowSize from "./component/windowSize";
+import WithWindowSize from "./component/window/window";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const ContentComponent = Loader(Content, 3000, '#898790', 'French');
+    const HelloWorldComponent = Loader(HelloWorld, 1000, '#999', 'German');
+
+    const WindowShowComponent = WithWindowSize(WindowSize);
+
+    return (
+        <div>
+            <ContentComponent/>
+            <HelloWorldComponent/>
+            <WindowShowComponent/>
+        </div>
+    );
+};
 
 export default App;
