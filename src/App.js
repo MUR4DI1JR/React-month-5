@@ -1,23 +1,26 @@
-import React from 'react';
-import Loader from "./component/Loader/Loader";
-import Content from "./component/content";
-import HelloWorld from "./component/helloWorld";
-import WindowSize from "./component/windowSize";
-import WithWindowSize from "./component/window/window";
+import React, {useCallback, useState} from 'react';
 
-const App = () => {
-    const ContentComponent = Loader(Content, 3000, '#898790', 'French');
-    const HelloWorldComponent = Loader(HelloWorld, 1000, '#999', 'German');
+const CallBack = () => {
+    const [count, setCount] = useState(0);
 
-    const WindowShowComponent = WithWindowSize(WindowSize);
+    const increment = useCallback(() =>{
+        setCount(count + 1);
+    }, [count]);
+
+    const decrement = () =>{
+        console.log("render");
+        setCount(count - 1)
+    }
 
     return (
-        <div>
-            <ContentComponent/>
-            <HelloWorldComponent/>
-            <WindowShowComponent/>
+        <div className="flex justify-center">
+            <div>
+                <p>{count}</p>
+                <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={increment}>+</button>
+                <button className="ml-[10px] bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={decrement}>-</button>
+            </div>
         </div>
     );
 };
 
-export default App;
+export default CallBack;
