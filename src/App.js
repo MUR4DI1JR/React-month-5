@@ -1,26 +1,33 @@
-import React, {useCallback, useState} from 'react';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
 
-const CallBack = () => {
-    const [count, setCount] = useState(0);
-
-    const increment = useCallback(() =>{
-        setCount(count + 1);
-    }, [count]);
-
-    const decrement = () =>{
-        console.log("render");
-        setCount(count - 1)
-    }
-
-    return (
-        <div className="flex justify-center">
-            <div>
-                <p>{count}</p>
-                <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={increment}>+</button>
-                <button className="ml-[10px] bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={decrement}>-</button>
+class App extends Component {
+    render() {
+        return (
+            <div className="text-center">
+                <p>counter: {this.props.counter}</p>
+                <button className="py-2 px-4 bg-gray-400 text-white mr-2"
+                        onClick={this.props.incrementCounter}>increment</button>
+                <button className="py-2 px-4 bg-gray-400 text-white mr-2"
+                        onClick={this.props.decrementCounter}>decrement</button>
+                <button>increase by 5</button>
+                <button>decrease by 5</button>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
+const mapStateToProps = state =>{
+    return{
+        counter: state.counter
+    }
+}
 
-export default CallBack;
+const mapDispatchToProps = dispatch =>{
+    return{
+        incrementCounter: ()=> dispatch({type: 'INCREMENT'}),
+        decrementCounter: ()=> dispatch({type: 'DECREMENT'}),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
